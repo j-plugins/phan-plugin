@@ -2,12 +2,78 @@
 <idea-plugin>
     <id>com.github.xepozz.phan</id>
     <name>Phan PHP</name>
-    <vendor>xepozz</vendor>
+    <vendor email="xepozz@list.ru" url="https://github.com/xepozz">Dmitrii Derepko (@xepozz)</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.jetbrains.php</depends>
+<!--    <depends config-file="php-remote-interpreter.xml" optional="true">-->
+<!--        org.jetbrains.plugins.phpstorm-remote-interpreter-->
+<!--    </depends>-->
 
     <resource-bundle>messages.PhanBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable
+                instance="com.github.xepozz.phan.config.PhanConfigurable"
+                bundle="messages.PhanBundle"
+                key="configurable.quality.tool.php.phan"
+                id="settings.php.quality.tools.php.phan"
+                parentId="settings.php.quality.tools"
+                groupWeight="30"
+        />
+
+        <localInspection
+                language="PHP"
+                shortName="PhanValidationInspection"
+                groupPath="PHP"
+                groupName="Quality tools"
+                enabledByDefault="true"
+                level="WEAK WARNING"
+                implementationClass="com.github.xepozz.phan.PhanValidationInspection"
+                key="inspection.phan.display.name"/>
+
+        <globalInspection
+                language="PHP"
+                shortName="PhanGlobal"
+                groupPath="PHP"
+                groupName="Quality tools"
+                enabledByDefault="true"
+                level="WEAK WARNING"
+                implementationClass="com.github.xepozz.phan.PhanGlobalInspection"
+                key="inspection.phan.global.display.name"/>
+
+        <externalAnnotator
+                language="PHP"
+                implementationClass="com.github.xepozz.phan.PhanAnnotatorProxy"/>
+        <completion.contributor
+                language="PHP"
+                implementationClass="com.github.xepozz.phan.completion.PhpDocCompletionContributor"/>
     </extensions>
+
+    <extensions defaultExtensionNs="com.jetbrains.php">
+        <tools.quality.type
+                implementation="com.github.xepozz.phan.PhanQualityToolType"/>
+        <composerConfigClient
+                implementation="com.github.xepozz.phan.composer.PhanComposerConfig"/>
+        <openSettingsProvider
+                implementation="com.github.xepozz.phan.PhanOpenSettingsProvider"/>
+        <config.interpreters.PhpInterpretersStateListener
+                implementation="com.github.xepozz.phan.PhanInterpreterStateListener"/>
+        <docPrefixProvider
+                implementation="com.github.xepozz.phan.PhanDocPrefixProvider"/>
+    </extensions>
+
+    <extensionPoints>
+        <extensionPoint
+                dynamic="true"
+                name="phanConfigurationProvider"
+                interface="com.github.xepozz.phan.config.PhanConfigurationProvider"/>
+    </extensionPoints>
+    <actions>
+        <action
+                id="com.github.xepozz.phan.PhanAddToIgnoredAction"
+                class="com.github.xepozz.phan.PhanAddToIgnoredAction">
+            <add-to-group group-id="PHPQualityToolsAddToIgnoredList" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>
