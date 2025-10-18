@@ -59,8 +59,8 @@
                 implementation="com.github.xepozz.phan.PhanOpenSettingsProvider"/>
         <config.interpreters.PhpInterpretersStateListener
                 implementation="com.github.xepozz.phan.PhanInterpreterStateListener"/>
-        <docPrefixProvider
-                implementation="com.github.xepozz.phan.PhanDocPrefixProvider"/>
+<!--        <docPrefixProvider-->
+<!--                implementation="com.github.xepozz.phan.PhanDocPrefixProvider"/>-->
     </extensions>
 
     <extensionPoints>
