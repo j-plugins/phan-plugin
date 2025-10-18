@@ -1,11 +1,11 @@
-package com.github.xepozz.phanplugin
+package com.github.xepozz.phan
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls
 import org.jetbrains.annotations.PropertyKey
 
 @NonNls
-private const val BUNDLE = "messages.MyBundle"
+private const val BUNDLE = "messages.PhanBundle"
 
 object MyBundle : DynamicBundle(BUNDLE) {
 
