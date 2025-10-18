@@ -7,5 +7,5 @@ import com.intellij.openapi.util.IconLoader
 // https://plugins.jetbrains.com/docs/intellij/icons-style.html
 object PhanIcons {
     @JvmField
-    val PHAN = IconLoader.getIcon("/icons/mago/icon.svg", this::class.java)
+    val PHAN = IconLoader.getIcon("/icons/phan/icon.svg", this::class.java)
 }
